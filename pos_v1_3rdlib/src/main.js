@@ -1,5 +1,4 @@
 //TODO: Please write code in this file.
-//TODO: Please write code in this file.
 function printInventory(inputs) {
     var allItem   = loadAllItems();
     var promot    = loadPromotions()[0];
@@ -22,7 +21,7 @@ function printInventory(inputs) {
                     } else {
                         aItem.count = 1;
                     }
-                    Itemcount.push(aItem);console.log(Itemcount)
+                    Itemcount.push(aItem);
                 } else {
                     for(var c= 0, length=Itemcount.length;c<length;c++){
                         if (Itemcount[c].barcode == inputs[b].substring(0,10)){
@@ -52,20 +51,25 @@ function printInventory(inputs) {
 
     }
 
-    for(var n = 0; n < Itemcount.length; n++){
+//    for(var n = 0; n < Itemcount.length; n++){
+//
+//    }
+    _.map(Itemcount,function(n){
+       // _.map(promot.barcodes,function(pro_barcode){
+
+        //})
         for(var k = 0; k < promot.barcodes.length;k++) {
-            if(Itemcount[n].barcode == promot.barcodes[k] && Itemcount[n].count>=2){
-                Itemcount[n].subTotalm = (Itemcount[n].count - 1) * Itemcount[n].price;
-                var promotCounts= {name: Itemcount[n].name,price:Itemcount[n].price,unit:Itemcount[n].unit, count: 1};
-                promotCount.push(promotCounts);
-                break;
+            if(n.barcode == promot.barcodes[k]&& n.count>=3 ){
+                    n.subTotalm = (n.count - parseInt(n.count / 3)) * n.price;
+                    var promotCounts= {name: n.name,price:n.price,unit:n.unit, count: 1};
+                    promotCount.push(promotCounts);
+                    break;
             }
-            if(promot.barcodes[k] != Itemcount[n].barcode && k == promot.barcodes.length - 1){
-                Itemcount[n].subTotalm = Itemcount[n].count * Itemcount[n].price;
+            if(promot.barcodes[k] != n.barcode && k == promot.barcodes.length - 1){
+                n.subTotalm = n.count * n.price;
             }
         }
-    }
-
+    });
 
     for(var i = 0; i < Itemcount.length; i++) {
         goodsPrint[i] = "名称：" + Itemcount[i].name + "，数量：" + Itemcount[i].count + Itemcount[i].unit + "，单价："
@@ -77,16 +81,9 @@ function printInventory(inputs) {
         freePrint[j]="名称：" + promotCount[j].name + "，数量：" + promotCount[j].count + promotCount[j].unit + "\n";
         cutMoney += promotCount[j].price;
     }
-
-    dateDigitToString = function (num) {
-        return num < 10 ? '0' + num : num;
-    };
-    var formattedDateStrings=0;
-
     var text =
         '***<没钱赚商店>购物清单***\n' +
-        //   '打印时间：' + currentDate(formattedDateStrings) + '\n' +
-        '----------------------\n' +
+
         goodsPrint.join("") +
         '----------------------\n' +
         '挥泪赠送商品：\n' +
