@@ -5,10 +5,10 @@ function printInventory(inputs) {
     var promot    = loadPromotions()[0];
     var Itemcount = [];
     var promotCount= [];
-    var goodsPrint = [];//打印买的商品
-    var freePrint = [];//打印赠送商品
-    var totalMoney = 0;//总价
-    var cutMoney = 0;//节省
+    var goodsPrint = [];
+    var freePrint = [];
+    var totalMoney = 0;
+    var cutMoney = 0;
 
 
     for(var a=0;a<allItem.length;a++){

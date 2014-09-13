@@ -53,11 +53,13 @@ function printInventory(inputs) {
 
     for(var n = 0; n < Itemcount.length; n++){
         for(var k = 0; k < promot.barcodes.length;k++) {
-            if(Itemcount[n].barcode == promot.barcodes[k] && Itemcount[n].count>=2){
+            if(Itemcount[n].barcode == promot.barcodes[k] ){
+                
+                if( Itemcount[n].count>=3){
                 Itemcount[n].subTotalm = (Itemcount[n].count - 1) * Itemcount[n].price;
                 var promotCounts= {name: Itemcount[n].name,price:Itemcount[n].price,unit:Itemcount[n].unit, count: 1};
                 promotCount.push(promotCounts);
-                break;
+                break;}
             }
             if(promot.barcodes[k] != Itemcount[n].barcode && k == promot.barcodes.length - 1){
                 Itemcount[n].subTotalm = Itemcount[n].count * Itemcount[n].price;
