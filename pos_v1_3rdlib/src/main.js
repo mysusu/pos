@@ -14,25 +14,14 @@ function printInventory(inputs) {
             if (allI.barcode == input.substring(0, 10)) {
                 if (!Itemcount.length) {
                     var aItem = allI;
-                    if (input.length > 10) {
-                        aItem.count = Number(input.substring(11, input.length));
-                    } else {
-                        aItem.count = 1;
-                    }
+                    aItem.count = input.length > 10 ? Number(input.substring(11, input.length)) : 1 ;
                     Itemcount.push(aItem);
                 } else {
-
-
                     for (var c = 0, length = Itemcount.length; c < length; c++) {
                         if (Itemcount[c].barcode == input.substring(0, 10)) {
-                            if (input.length > 10) {
-                                Itemcount[c].count += Number(input.substring(11, input.length));
-                            } else {
-                                Itemcount[c].count++;
-                            }
-                        //  Itemcount[c] = input.length > 10 ? Number(input.substring(11, input.length))+Itemcount[]
+                          Itemcount[c].count = input.length > 10 ? (Number(input.substring(11, input.length))
+                              +Itemcount[c].count) : (Itemcount[c].count+1);
                             break;
-
                         }
                         if (Itemcount[c].barcode != input.substring(0, 10) && c == Itemcount.length - 1) {
                             var bItem = allI;
