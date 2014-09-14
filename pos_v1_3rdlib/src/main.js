@@ -9,31 +9,37 @@ function printInventory(inputs) {
     var totalMoney = 0;
     var cutMoney = 0;
 
+
     _.map(allItem, function (allI) {
-        _.map(inputs, function (input) {
+        _.map(inputs,function(input){
             if (allI.barcode == input.substring(0, 10)) {
                 if (!Itemcount.length) {
                     var aItem = allI;
-                    aItem.count = input.length > 10 ? Number(input.substring(11, input.length)) : 1 ;
+                    aItem.count = input.length > 10 ? Number(input.substring(11, input.length)) : 1;
+//
                     Itemcount.push(aItem);
                 } else {
+
                     for (var c = 0, length = Itemcount.length; c < length; c++) {
                         if (Itemcount[c].barcode == input.substring(0, 10)) {
-                          Itemcount[c].count = input.length > 10 ? (Number(input.substring(11, input.length))
-                              +Itemcount[c].count) : (Itemcount[c].count+1);
+                            Itemcount[c].count = input.length > 10 ?
+                                (Number(input.substring(11, input.length)) + Itemcount[c].count) : (Itemcount[c].count + 1);
                             break;
                         }
                         if (Itemcount[c].barcode != input.substring(0, 10) && c == Itemcount.length - 1) {
                             var bItem = allI;
-                            bItem.count = input.length > 10 ? Number(input.substring(11, input.length)) : 1;
+                            bItem.count = input.length > 10 ?
+                                Number(input.substring(11, input.length)) : 1;
                             Itemcount.push(bItem);
                         }
                     }
                 }
             }
-        });
-    });
 
+        });
+
+    });//var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
+// → [2, 4, 6]
     _.map(Itemcount, function (n) {
         var even = _.find(promot.barcodes, function (promot_bar) {
             return promot_bar == n.barcode && n.count >= 3
