@@ -8,30 +8,25 @@ function printInventory(inputs) {
     var freePrint = [];
     var totalMoney = 0;
     var cutMoney = 0;
-
-
     _.map(allItem, function (allI) {
-        var all_input_equal = _.filter(inputs, function (input) {
-            return allI.barcode == input.substring(0, 10);
-        });
-        if (all_input_equal) {
-            if (!Itemcount.length) {
-                Itemcount.push(len(allI, input));
-            }
-            if (Itemcount.length) {
-                var item_even = item_count_s(Itemcount, input);
-                if (item_even) {
-                    item_count_s(Itemcount, input).count = input.length > 10 ? (Number(input.substring(11, input.length)) + item_even.count) : (item_even.count + 1);
-                }
-
-                if (!item_even) {
+        _.map(inputs, function (input) {
+            if (allI.barcode == input.substring(0, 10)) {
+                // if (all_input_equal) {
+                if (!Itemcount.length) {
                     Itemcount.push(len(allI, input));
                 }
+                else {
+                    var item_even = item_count_s(Itemcount, input);
+                    if (item_even) {
+                        item_count_s(Itemcount, input).count = input.length > 10 ? (Number(input.substring(11, input.length)) + item_even.count) : (item_even.count + 1);
+                    }
+                    if (!item_even) {
+                        Itemcount.push(len(allI, input));
+                    }
+                }
             }
-        }
-
+        });
     });
-
 
     _.map(Itemcount, function (n) {
         var even = get_promot_in_Itemcount(promot, n);
@@ -40,7 +35,7 @@ function printInventory(inputs) {
             var promotCounts = {name: n.name, price: n.price, unit: n.unit, count: 1};
             promotCount.push(promotCounts);
         }
-        else {
+        if (!even) {
             n.subTotalm = n.count * n.price;
         }
     });

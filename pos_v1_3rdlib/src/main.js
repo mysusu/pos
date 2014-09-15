@@ -38,8 +38,7 @@ function printInventory(inputs) {
 
         });
 
-    });//var evens = _.filter([1, 2, 3, 4, 5, 6], function(num) { return num % 2 == 0; });
-// → [2, 4, 6]
+    });
     _.map(Itemcount, function (n) {
         var even = _.find(promot.barcodes, function (promot_bar) {
             return promot_bar == n.barcode && n.count >= 3
